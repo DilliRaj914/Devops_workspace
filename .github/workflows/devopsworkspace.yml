@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: [ azure-workspace ]
+    runs-on: [ azure-workspace-ubuntu ]
 
     steps:
       - name: Checkout code
