@@ -32,6 +32,7 @@ jobs:
      
       - name: building docker image
         run: |
+          docker rmi flask-calculator
           docker build -t flask-calculator .
           docker images
         # docker run -p 5000:5000 flask-calculator
