@@ -35,4 +35,7 @@ jobs:
           docker build -t flask-calculator .
           docker images
           docker run -p 5000:5000 flask-calculator
+      - name: checking the status of image
+        run: | 
+           docker ps 
            
