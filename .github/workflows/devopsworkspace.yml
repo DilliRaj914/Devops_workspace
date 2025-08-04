@@ -32,7 +32,7 @@ jobs:
      
       - name: Run Python script
         run: |
-          python /src/app.py
+          python app.py
 
       - name: Upload HTML as artifact
         uses: actions/upload-artifact@v4
