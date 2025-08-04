@@ -14,7 +14,7 @@ df = pd.DataFrame(data)
 # Generate styled HTML
 styled_html = df.style.set_table_styles(
     [{'selector': 'th', 'props': [('background-color', '#f2f2f2'), ('text-align', 'center')]}]
-).set_properties(**{'text-align': 'center'}).render()
+).set_properties(**{'text-align': 'center'}).to_html()
 
 html = f"""
 <html>
