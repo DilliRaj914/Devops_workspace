@@ -34,15 +34,11 @@ jobs:
         run: |
           python src/app.py
           
-      # - name: Run SonarQube scan
-      #   uses: SonarSource/sonarcloud-github-action@v2
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.sonar_creds }}
-      #   with:
-      #     args: >
-      #       -Dsonar.projectKey=my-python-app
-      #       -Dsonar.sources=src
-      #       -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@v2
+        env:
+           SONAR_TOKEN: ${{ secrets.sonar_creds }}
+           SONAR_HOST_URL: https://sonarcloud.io
 
       - name: Upload HTML as artifact
         uses: actions/upload-artifact@v4
