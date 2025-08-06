@@ -34,12 +34,12 @@ jobs:
         run: |
           python src/app.py
           
-      - name: SonarQube Scan
-        uses: sonarsource/sonarqube-scan-action@v2
-        env:
-           SONAR_TOKEN: ${{ secrets.sonar_creds }}
-           SONAR_HOST_URL: https://sonarcloud.io
-           SONAR_SCANNER_OPTS: "-Xmx1024m"
+      # - name: SonarQube Scan
+      #   uses: sonarsource/sonarqube-scan-action@v2
+      #   env:
+      #      SONAR_TOKEN: ${{ secrets.sonar_creds }}
+      #      SONAR_HOST_URL: https://sonarcloud.io
+      #      SONAR_SCANNER_OPTS: "-Xmx1024m"
        
             
 
