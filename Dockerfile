@@ -1,5 +1,5 @@
 # Use official Python image
-FROM python:3.10
+FROM python:3.11-slim
 
 # Set the working directory
 WORKDIR /src
@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 EXPOSE 5000
 
 # Start the Flask app
-CMD ["python", "/src/src/app.py"]
+CMD ["python", "app.py"]
