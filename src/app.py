@@ -1,53 +1,52 @@
-# generate_table.py
+from flask import Flask, send_file
 import pandas as pd
 import os
 
-data = [
-    {"Name": "Alice", "Role": "Developer", "Status": "Active"},
-    {"Name": "Bob", "Role": "Tester", "Status": "Inactive"},
-    {"Name": "Charlie", "Role": "Manager", "Status": "Active"},
-    {"Name": "Diana", "Role": "DevOps", "Status": "Active"},
-]
+app = Flask(__name__)
 
-df = pd.DataFrame(data)
+@app.route("/")
+def serve_table():
+    # If file exists, serve it
+    if os.path.exists("output/index.html"):
+        return send_file("output/index.html")
+    else:
+        # Otherwise, regenerate
+        data = [
+            {"Name": "Alice", "Role": "Developer", "Status": "Active"},
+            {"Name": "Bob", "Role": "Tester", "Status": "Inactive"},
+            {"Name": "Charlie", "Role": "Manager", "Status": "Active"},
+            {"Name": "Diana", "Role": "DevOps", "Status": "Active"},
+        ]
 
-# Apply color styling
-styled_df = df.style \
-    .set_table_styles([
-        {'selector': 'thead th', 'props': [('background-color', '#4CAF50'), ('color', 'white'), ('text-align', 'center')]},
-        {'selector': 'tbody td', 'props': [('text-align', 'center')]},
-    ]) \
-    .applymap(lambda x: 'color: red' if x == 'Inactive' else '', subset=["Status"]) \
-    .set_properties(**{
-        'border': '1px solid #ddd',
-        'padding': '10px',
-        'font-size': '16px'
-    }) \
-    .set_caption("🌟 <b>Stylish Team Table</b>")
+        df = pd.DataFrame(data)
 
-# Wrap into full HTML
-html = f"""
-<html>
-<head>
-    <title>Team Members</title>
-    <style>
-        body {{
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }}
-        h2 {{
-            color: #333;
-        }}
-    </style>
-</head>
-<body>
-    {styled_df.to_html()}
-</body>
-</html>
-"""
+        styled_html = df.style.set_table_styles(
+            [{'selector': 'th', 'props': [('background-color', '#f2f2f2'), ('text-align', 'center')]}]
+        ).set_properties(**{'text-align': 'center'}).to_html()
 
-# Save output
-os.makedirs("output", exist_ok=True)
-with open("output/index.html", "w") as f:
-    f.write(html)
+        html = f"""
+        <html>
+        <head>
+            <title>Team Members</title>
+            <style>
+                body {{
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                }}
+            </style>
+        </head>
+        <body>
+            <h2>Team Members Table</h2>
+            {styled_html}
+        </body>
+        </html>
+        """
+
+        os.makedirs("output", exist_ok=True)
+        with open("output/index.html", "w") as f:
+            f.write(html)
+
+        return send_file("output/index.html")
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
