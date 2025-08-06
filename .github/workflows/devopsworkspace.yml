@@ -9,7 +9,7 @@ on:
    # branches:
      # - main
 env:
- IMAGE_TAG : DEV
+ IMAGE_TAG : dev
 jobs:
   build:
     runs-on: [ aws-linux ]
